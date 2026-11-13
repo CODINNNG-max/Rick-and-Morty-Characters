@@ -2,7 +2,7 @@ import requests
 
 url="https://rickandmortyapi.com/api/character"
 def check(user):
-    if user=="":
+    if not user.strip():
         print("Cannot leave empty !")
         return False
     else:
@@ -18,6 +18,7 @@ while True:
         try:
             que_params={}
             nm=input("What character from the rick and morty franchasie would you like to find : ").lower().strip()
+            check(nm)
             que_params["name"]=nm
             print(f"You can filter {nm} by :\n1.Status : Alive|Dead|Unknown \n2.Species : Human|Alien|... \n3.Both above \n4.None")
             while True:
@@ -53,12 +54,14 @@ while True:
                         continue
             try:    
                 response = requests.get(url,params=que_params)
+                response.raise_for_status
             except requests.exceptions.RequestException:
                 print("Failed to connect to server")
                 continue
             if response.status_code==404:
                 print(f"No characters found matching {nm} with those filters")
             else:
+                
                 ram=response.json()
                 if ram['info']['count'] <=20:
                     print(f"There's {ram['info']['count']} {nm}'s that match your filter")
