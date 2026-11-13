@@ -54,7 +54,7 @@ while True:
                         continue
             try:    
                 response = requests.get(url,params=que_params)
-                response.raise_for_status
+                response.raise_for_status()
             except requests.exceptions.RequestException:
                 print("Failed to connect to server")
                 continue
