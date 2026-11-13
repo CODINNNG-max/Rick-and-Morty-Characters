@@ -18,8 +18,10 @@ while True:
         try:
             que_params={}
             nm=input("What character from the rick and morty franchasie would you like to find : ").lower().strip()
-            check(nm)
-            que_params["name"]=nm
+            if check(nm):
+                que_params["name"]=nm
+            else:
+                continue
             print(f"You can filter {nm} by :\n1.Status : Alive|Dead|Unknown \n2.Species : Human|Alien|... \n3.Both above \n4.None")
             while True:
                 ch=input(f'Enter filters for {nm} : ')
